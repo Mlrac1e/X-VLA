@@ -13,7 +13,7 @@ We evluate X-VLA across 6 simulations, which encompass hundreds of evaluation se
 More detailed metrics for each benchmark are available in the following figures. Click to view: [Robotics Simulation](https://github.com/2toinf/X-VLA/blob/main/images/robo.jpeg) and [Autonomous Driving](https://github.com/2toinf/X-VLA/blob/main/images/ad.jpeg). 
 
 ### Server-Client Setup
-Following [$\pi_{0}$](https://github.com/Physical-Intelligence/openpi), we adopt a server-client setup for simulation evaluations. Specifically, we run the policy and the simulation environment in separate Python processes, using a network-based server-client setup to enable communication between them. The policy acts as the server, while the simulation environment queries it as a client.
+Following [π₀](https://github.com/Physical-Intelligence/openpi), we adopt a server-client setup for simulation evaluations. Specifically, we run the policy and the simulation environment in separate Python processes, using a network-based server-client setup to enable communication between them. The policy acts as the server, while the simulation environment queries it as a client.
 
 To start the server, run the following commands:
 
