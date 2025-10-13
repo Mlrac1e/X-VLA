@@ -25,8 +25,19 @@ cd a2d_sdk
 git clone git@github.com:2toinf/X-VLA.git
 cd X-VLA
 pip install -r eval/agibot/client_requirements.txt
-source eval/agibot/robo-service.sh
 ```
+
+
+#### run
+
+```
+cd a2d_sdk
+source env.sh
+robot-service -s -c ./conf/copilot.pbtxt
+cd X-VLA
+sh ./eval/agibot/run_client_ee.sh
+```
+
 
 
 

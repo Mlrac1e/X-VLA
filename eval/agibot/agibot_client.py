@@ -209,11 +209,11 @@ class ClientModel():
             return np.concatenate([left_xyz, left_quat, left_gripper, right_xyz, right_quat, right_gripper], axis=-1)
         elif self.control_mode == "delta_eef":
             left_xyz = action[:, 0:3] + self.proprio[None, 0:3]
-            left_quat = rotate6d_to_quat(action[:, 3:9], scalar_first=True)
+            left_quat = rotate6d_to_quat(action[:, 3:9], scalar_first=False)
             left_gripper = action[:, 9:10]
             
             right_xyz = action[:, 10:13] + self.proprio[None, 10:13]
-            right_quat = rotate6d_to_quat(action[:, 13:19], scalar_first=True)
+            right_quat = rotate6d_to_quat(action[:, 13:19], scalar_first=False)
             right_gripper = action[:, 19:20]
 
             return np.concatenate([left_xyz, left_quat, left_gripper, right_xyz, right_quat, right_gripper], axis=-1)
@@ -289,8 +289,8 @@ def main(args):
                         head_positions=TASK_INFOS[args.task_id]['head_init'])
         current_instruction = TASK_INFOS[args.task_id]['instruction']
         print(f"📝 Current task_id: {args.task_id}, instruction: {current_instruction}")
-        print("✅ 系统初始化完成！")
-        # input()
+        print("✅ 系统初始化完成！INPUT ENTER")
+        input()
         print("🚀 进入主控制循环...")
 
         # --- 2. 主控制循环 ---
@@ -357,12 +357,12 @@ def main(args):
                     print(f"✅ 已获取并编码图像: {server_name}")
                 else:
                     print(f"⚠️ 无法获取图像: {server_name}")
-                # if raw_img is not None:
-                #     log_path = os.path.join(LOG_IMAGE_DIR, f"{server_name}_{timestamp}.png")
-                #     cv2.imwrite(log_path, raw_img)
-                #     latest_path = f"./{server_name}_latest.png"
-                #     cv2.imwrite(latest_path, raw_img)
-                #     print(f"[Saved] {latest_path}")
+                if raw_img is not None:
+                    log_path = os.path.join(LOG_IMAGE_DIR, f"{server_name}_{timestamp}.png")
+                    cv2.imwrite(log_path, raw_img)
+                    latest_path = f"./{server_name}_latest.png"
+                    cv2.imwrite(latest_path, raw_img)
+                    print(f"[Saved] {latest_path}")
             
             # --- 2.4. 解析并执行动作 ---
             if "eef" in args.control_mode:

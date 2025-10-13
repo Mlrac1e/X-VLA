@@ -1,7 +1,7 @@
-scipy
-mmengine
+scipy>=1.15.3
 numpy
 json_numpy
+mmengine
 torch
 torchvision
 pyarrow
