@@ -9,8 +9,9 @@ from datasets.common import open_h5, quat_to_rotate6d
 from PIL import Image
 from .base import DomainHandler
 import json
+
 # Human Labeled Split file
-SPLITFILE = "/mnt/petrelfs/zhengjinliang/Data/agiworld/on-site/human_split.json"
+SPLITFILE = None
 USE_WRIST_VIEW = False
 
 # Task instruction per domain
@@ -37,8 +38,7 @@ DOMAIN2CHUNKSIZE = {
     "agiworld-on-site-restock": 61,
     "agiworld-on-site-pour": 61,
     "agiworld-on-site-microwave": 121,
-    "agiworld-on-site-cloth": 121,
-#    "agiworld-on-site-cloth-2": 60
+    "agiworld-on-site-cloth": 121
 }
 
 
