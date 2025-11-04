@@ -75,7 +75,8 @@ class XVLA(nn.Module):
         use_hetero_proj: bool = False,
         action_mode: str = "ee6d",
         use_proprio: bool = True,
-        version: str = "v1"
+        version: str = "v1",
+        dtype = torch.float32
     ):
         """
         Parameters
@@ -149,6 +150,7 @@ class XVLA(nn.Module):
         # I/O preprocessors (implementations are project-specific)
         self.text_preprocessor = LanguagePreprocessor(encoder_name=encoder_name)
         self.image_preprocessor = ImagePreprocessor(version=version)
+        self.dtype = dtype
         self.version = version
         self.app: FastAPI | None = None
 
@@ -339,7 +341,6 @@ class XVLA(nn.Module):
         Tensor, shape [B, T=num_actions, dim_action]
             Predicted action sequence; sigmoid applied only on gripper channels.
         """
-        start_time = time.time()
         self.eval()
         enc = self.forward_vlm(input_ids=input_ids, pixel_values=image_input, image_mask=image_mask)
 
@@ -467,6 +468,7 @@ def build_xvla(device: str = "cuda",
          use_local_vlm = None, 
          use_proprio = True,
          version = "v1",
+         dtype = torch.float32
          **kwargs):
     """
     Factory for an XVLA preset using Florence-2-large and a deeper transformer.
@@ -499,8 +501,9 @@ def build_xvla(device: str = "cuda",
         num_actions=num_actions,
         action_mode=action_mode,
         use_proprio=use_proprio,
-        version = version
-    ).to(torch.float32)
+        version = version,
+        dtype = dtype
+    ).to(dtype)
 
     if isinstance(pretrained, str):
         print(f">>>>>> load pretrain from {pretrained}")

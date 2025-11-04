@@ -11,7 +11,25 @@ https://github.com/user-attachments/assets/c047bac4-17c3-4d66-8036-badfab2b8c41
 
 ## Quick Start 
 
-**ALL code details and guidance will be released in one month**
+
+### Install Package and Requirements
+
+1. Clone the repository and navigate to X-VLA folder
+```
+git clone https://github.com/2toinf/X-VLA.git
+cd X-VLA
+```
+
+2. Create conda env and install the package
+```
+conda create -n XVLA python=3.10 -y
+conda activate XVLA
+pip install -r requirements.txt
+```
+
+
+
+
 
 
 
