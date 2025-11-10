@@ -62,7 +62,7 @@ class InfiniteDataReader(IterableDataset):
 
         self.image_aug = [
             transforms.Resize((224, 224), interpolation=InterpolationMode.BICUBIC),
-            transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.2) \
+            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.) \
                 if training else transforms.Lambda(lambda x: x),
             transforms.ToTensor(),
             transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225), inplace=True),
@@ -103,7 +103,7 @@ class InfiniteDataReader(IterableDataset):
         if not self.training: 
             for n in names: yield from self._iter_one_dataset(n)
         else:
-            names = names * 20 # increase the dataset sampling frequency
+           # names = names * 20 # increase the dataset sampling frequency
             gens = [iter(self._iter_one_dataset(n)) for n in names]
             ws = [DATA_WEIGHTS.get(n, 1.0) for n in names]
             s = sum(ws); ws = [w / s for w in ws]

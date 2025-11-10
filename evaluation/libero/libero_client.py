@@ -131,18 +131,19 @@ class ClientModel():
             wrist_view = obs["robot0_eye_in_hand_image"]   # np.ndarray with shape (256, 256, 3)
                         
             # prioprio
-            # if self.proprio is None:
             self.proprio = np.concatenate([obs['robo_pos'], obs['robo_ori'], np.array([0])], axis=-1)
             self.proprio = np.concatenate([self.proprio, np.zeros_like(self.proprio)], axis=-1)
             query = {
                 "proprio": json_numpy.dumps(self.proprio),
                 "language_instruction": goal,
                 "image0": json_numpy.dumps(main_view),
-                "image1": json_numpy.dumps(wrist_view)
+                "image1": json_numpy.dumps(wrist_view),
+                "domain_id": 3,
+                "steps": 10
             }
             response = requests.post(self.url, json=query)
             action = np.array(response.json()['action'])
-            # self.proprio = action[-1]
+            
             target_eef = action[:, :3]
             target_axis = self.processor.Rotate6D_to_AxisAngle(action[:, 3:9])
             target_act = action[:, 9:10]
@@ -287,7 +288,7 @@ def eval_libero(agent, save_path, num_episodes=10, init_seed=42, act_type='abs',
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='single-process evaluation on Libero bench')
     parser.add_argument('--task_suites', default=['libero_10', 'libero_spatial', 'libero_goal', 'libero_object'], nargs='+', help='base save path')
-    parser.add_argument('--eval_time', default=1, type=int, help='evaluate episodes')
+    parser.add_argument('--eval_time', default=50, type=int, help='evaluate episodes')
     parser.add_argument('--init_seed', default=42, type=int, help='base save path')
     parser.add_argument('--output_dir', type=str, help='base save path')
     args = parser.parse_args()
@@ -307,7 +308,7 @@ if __name__ == '__main__':
         host = infos['host']
         port = infos['port']
         job_id = infos['job_id']
-    os.remove(osp.join(kwargs['output_dir'], 'info.json'))
+    # os.remove(osp.join(kwargs['output_dir'], 'info.json'))
     print("-"*88)
     print("init seed:", kwargs['init_seed'])
     print("save path:", kwargs['output_dir'])
@@ -316,16 +317,5 @@ if __name__ == '__main__':
     print("-"*88)
 
     agent = ClientModel(host=host, port=port)
-    import subprocess
-    kill_client =  f"""#!/bin/bash
-#SBATCH -p mozi_t
-#SBATCH -N 1
-scancel {job_id}
-"""
-    job_file = os.path.join(kwargs['output_dir'], f"run_kill.sh")
-    with open(job_file, "w") as f: f.write(kill_client)
-    try:
-        eval_libero(agent=agent, save_path=kwargs['output_dir'], init_seed=kwargs['init_seed'],
-                        num_episodes=kwargs['eval_time'], task_suites=kwargs['task_suites'], act_type='abs')
-    except: subprocess.run(['sbatch', job_file], capture_output=True, text=True)
-    subprocess.run(['sbatch', job_file], capture_output=True, text=True)
+    eval_libero(agent=agent, save_path=kwargs['output_dir'], init_seed=kwargs['init_seed'],
+                    num_episodes=kwargs['eval_time'], task_suites=kwargs['task_suites'], act_type='abs')

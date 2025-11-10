@@ -71,8 +71,8 @@ def main():
         model = XVLA.from_pretrained(
             args.model_path,
             trust_remote_code=True,
-            torch_dtype=torch.bfloat16 if device.type == "cuda" else torch.float32,
-        ).to(device)
+            torch_dtype=torch.float32
+        ).to(device).to(torch.float32)
         print("✅ Model successfully loaded and moved to device.")
     except Exception as e:
         print(f"❌ Failed to load model: {e}")
@@ -131,10 +131,7 @@ def main():
     print(f"\n🌐 Launching FastAPI service at http://{host}:{args.port} ...")
     try:
         if hasattr(model, "run"):
-            if processor is not None:
-                model.run(processor=processor, host=host, port=args.port)
-            else:
-                model.run(host=host, port=args.port)
+            model.run(processor=processor, host=host, port=args.port)
         else:
             print("❌ The loaded model does not implement `.run()` (FastAPI entrypoint).")
     except KeyboardInterrupt:

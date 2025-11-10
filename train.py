@@ -89,7 +89,7 @@ def get_args_parser():
     parser.add_argument("--iters", type=int, default=1000000)
     parser.add_argument("--freeze_steps", type=int, default=1000)
     parser.add_argument("--warmup_steps", type=int, default=2000)
-    parser.add_argument("--use_cosine_decay", action="store_true", default=True)
+    parser.add_argument("--use_cosine_decay", action="store_true", default=False)
     parser.add_argument("--min_lr_ratio", type=float, default=0.05)
 
     # Logging / saving
@@ -252,6 +252,7 @@ def main(args):
                 )
         
         # Checkpointing
+        global_step += 1
         if accelerator.is_main_process:
             if global_step == args.iters or global_step % args.save_interval == 0:
                 save_dir = os.path.join(output_dir, f"ckpt-{global_step}")
@@ -259,11 +260,9 @@ def main(args):
                 accelerator.unwrap_model(model).save_pretrained(save_dir, safe_serialization=True)
                 with open(os.path.join(save_dir, "state.json"), "w") as f:
                     json.dump({"global_step": global_step}, f)
-        global_step += 1
         if global_step >= args.iters: break
 
     accelerator.end_training()
-
 
 # ============================================================
 # Entry

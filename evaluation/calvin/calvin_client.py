@@ -95,7 +95,7 @@ class ClientModel(CalvinBaseModel):
             try:
                 response = requests.post(self.url, json=payload, timeout=10)
                 response.raise_for_status()
-                self.action_plan = response.json()["action"][:20]
+                self.action_plan = response.json()["action"][:25]
             except Exception as e:
                 print(f"⚠️ Server request failed: {e}")
                 return np.zeros(3), np.array([0, 0, 0, 1]), -1

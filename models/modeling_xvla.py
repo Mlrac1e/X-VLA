@@ -62,7 +62,7 @@ class XVLA(PreTrainedModel):
         dim_proprio = getattr(self.action_space, "dim_proprio", dim_action)
 
         # Florence2 backbone (encoder only)
-        self.vlm = Florence2ForConditionalGeneration(config.florence_config)
+        self.vlm = Florence2ForConditionalGeneration(config.florence_config).to(torch.float32)
         if hasattr(self.vlm, "language_model"):
             lm = self.vlm.language_model
             if hasattr(lm, "model") and hasattr(lm.model, "decoder"):

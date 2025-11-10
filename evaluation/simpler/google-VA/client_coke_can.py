@@ -551,14 +551,6 @@ agg_dict = {
 }
  
 def evaluate_policy_Google(model, text_processor, image_processor, eval_log_dir, chunk_length = 10):
-#     for task in [
-#             'google_robot_move_near_agg_0',
-#             'google_robot_close_drawer',
-#             'google_robot_open_drawer',
-#         'google_robot_pick_coke_can',
-#    'google_robot_move_near',
-#    'google_robot_place_in_closed_drawer',
-#   ]:
         
     for task in agg_dict.keys():
         agg_dict_current = agg_dict[task]
