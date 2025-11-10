@@ -1,10 +1,10 @@
 
 
-# 🤖 X-VLA: Cross-Embodiment Vision-Language-Action Transformer
+# 🤖 X-VLA: Soft-Prompted Transformer as a Scalable Cross-Embodiment Vision-Language-Action Model
 
-## Soft-Prompted Transformer as a Scalable Cross-Embodiment Vision-Language-Action Model
+### 🏅Champion @ AgiBot World Challenge @ IROS 2025
 
-The **X-VLA** (Cross-Embodiment Vision-Language-Action) model introduces a unified **soft-prompted Transformer** architecture that achieves **scalable and generalizable control** across heterogeneous robotic embodiments.  
+**X-VLA** (Cross-Embodiment Vision-Language-Action) model introduces a unified **soft-prompted Transformer** architecture that achieves **scalable and generalizable control** across heterogeneous robotic embodiments.  
 By **decoupling the core policy model from embodiment-specific details**, X-VLA enables robust, high-performance deployment in both simulation and real-world robotic systems.
 
 | 📄 **Paper** | 🌐 **Project Page** | 🤗 **Hugging Face** |
@@ -52,13 +52,14 @@ This design avoids package conflicts and supports distributed inference across G
 | Model ID                                                                                           | Embodiment        | Description                                                                                     |   Performance   | Evaluation Guidance |
 | :------------------------------------------------------------------------------------------------- | :---------------- | :---------------------------------------------------------------------------------------------- | :--------------: | :-----------------: |
 | [`2toINF/X-VLA-Pt`](https://huggingface.co/2toINF/X-VLA-Pt)                                        | Foundation        | Pretrained on large-scale heterogeneous robot–vision–language datasets for general transfer.     | —                | —                   |
-| [`2toINF/X-VLA-AgiWorld-Challenge`](https://huggingface.co/2toINF/X-VLA-AgiWorld-Challenge)        | AgiWorld          | Fine-tuned for embodied multimodal reasoning and manipulation tasks in AgiWorld Challenge.       | **89.7%**        | [AgiWorld Eval](evaluation/agiworld/README.md)      |
-| [`2toINF/X-VLA-Calvin-ABC_D`](https://huggingface.co/2toINF/X-VLA-Calvin-ABC_D)                    | CALVIN ABC_D      | Fine-tuned on CALVIN benchmark (ABC_D subset) for vision-language robotic control.               | **93.1%**        | [Calvin Eval](evaluation/calvin/README.md)          |
-| [`2toINF/X-VLA-Google-Robot`](https://huggingface.co/2toINF/X-VLA-Google-Robot)                    | Google Robot      | Aligned with large-scale Google Robot dataset for multi-skill generalization.                    | **94.2%**        | [GR Eval](evaluation/google_robot/README.md)        |
-| [`2toINF/X-VLA-Libero`](https://huggingface.co/2toINF/X-VLA-Libero)                                | LIBERO            | Fine-tuned on LIBERO benchmark for manipulation via multimodal prompts.                         | **92.5%**        | [Libero Eval](evaluation/libero/README.md)          |
-| [`2toINF/X-VLA-RoboTwin2`](https://huggingface.co/2toINF/X-VLA-RoboTwin2)                          | RoboTwin2         | Trained on RoboTwin2 sim2real dataset for dual-arm coordinated manipulation.                     | **90.4%**        | [RoboTwin2 Eval](evaluation/robotwin2/README.md)    |
-| [`2toINF/X-VLA-Simpler-WidowX`](https://huggingface.co/2toINF/X-VLA-Simpler-WidowX)                | WidowX (Simpler)  | Fine-tuned on BridgeDataV2 (Simpler benchmark).                                                  | **95.8%**        | [Simpler Eval](evaluation/simpler/WidowX/README.md) |
-| [`2toINF/X-VLA-SoftFold`](https://huggingface.co/2toINF/X-VLA-SoftFold)                            | SoftFold          | Specialized in deformable object manipulation (e.g., folding and cloth control).                 | **91.3%**        | [SoftFold Eval](evaluation/softfold/README.md)      |
+| [`2toINF/X-VLA-AgiWorld-Challenge`](https://huggingface.co/2toINF/X-VLA-AgiWorld-Challenge)        | Agibot-G1          | Fine-tuned for AgiWorld Challenge.       | **Champion🥇**        | -  |
+| [`2toINF/X-VLA-Calvin-ABC_D`](https://huggingface.co/2toINF/X-VLA-Calvin-ABC_D)                    | Franka     | Fine-tuned on CALVIN benchmark (ABC_D subset)              | **4.41**        | [Calvin Eval](evaluation/calvin/README.md)          |
+| [`2toINF/X-VLA-Google-Robot`](https://huggingface.co/2toINF/X-VLA-Google-Robot)                    | Google Robot      |  Fine-tuned on large-scale Google Robot dataset                | **80.4%(VM) 75.7%(VA)**        | [Simpler Eval](evaluation/simpler/README.md)   |
+| [`2toINF/X-VLA-Libero`](https://huggingface.co/2toINF/X-VLA-Libero)                                | Franka            | Fine-tuned on LIBERO benchmark                     | **98.1%**        | [LIBERO Eval](evaluation/libero/README.md)         |
+| [`2toINF/X-VLA-VLABench`](https://huggingface.co/2toINF/X-VLA-VLABench)                                | Franka            | Fine-tuned on VLABench benchmark                     | **51.1(score)**        | to be update         |
+| [`2toINF/X-VLA-RoboTwin2`](https://huggingface.co/2toINF/X-VLA-RoboTwin2)                          | Agilex        | Trained on RoboTwin2 dataset for dual-arm coordinated manipulation(50 demos for each task).                     | **70%**        |   [RoboTwin2.0 Eval](evaluation/robotwin-2.0/README.md)    |
+| [`2toINF/X-VLA-Simpler-WidowX`](https://huggingface.co/2toINF/X-VLA-WidowX)                | WidowX  | Fine-tuned on BridgeDataV2 (Simpler benchmark).                                                  | **95.8%**        | [Simpler Eval](evaluation/simpler/README.md) |
+| [`2toINF/X-VLA-SoftFold`](https://huggingface.co/2toINF/X-VLA-SoftFold)                            | Agilex          | Fine-tuned on Soft-Fold Dataset. Specialized in deformable object manipulation (e.g., folding and cloth control).                 | cloth folding with a 100% success rate in 2 hours.  |  [SoftFold-Agilex](evaluation/SoftFold-Agilex/readme.md)   |
 
 ---
 
@@ -262,10 +263,11 @@ If you use X-VLA in your research, please cite:
 
 ```bibtex
 @article{zheng2025x,
-  title={X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment Vision-Language-Action Model},
-  author={Zheng, Jinliang and Li, Jianxiong and Wang, Zhihao and Liu, Dongxiu and Kang, Xirui and Feng, Yuchun and Zheng, Yinan and Zou, Jiayin and Chen, Yilun and Zeng, Jia and others},
-  journal={arXiv preprint arXiv:2510.10274},
-  year={2025}
+  title   = {X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment Vision-Language-Action Model},
+  author  = {Zheng, Jinliang and Li, Jianxiong and Wang, Zhihao and Liu, Dongxiu and Kang, Xirui
+             and Feng, Yuchun and Zheng, Yinan and Zou, Jiayin and Chen, Yilun and Zeng, Jia and others},
+  journal = {arXiv preprint arXiv:2510.10274},
+  year    = {2025}
 }
 ```
 

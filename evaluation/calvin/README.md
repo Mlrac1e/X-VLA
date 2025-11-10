@@ -20,7 +20,7 @@ Run the X-VLA model as an inference server (in a clean environment to avoid depe
 ```bash
 conda activate X-VLA
 python -m x_vla.deploy \
-  --model_path 2toINF/X-VLA-Calvin \
+  --model_path  2toINF/X-VLA-Calvin-ABC_D\
   --host 0.0.0.0 \
   --port 8000
 ```
