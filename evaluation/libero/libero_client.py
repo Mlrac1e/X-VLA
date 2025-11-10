@@ -127,19 +127,19 @@ class ClientModel():
             wrist_view = obs["robot0_eye_in_hand_image"]   # np.ndarray with shape (256, 256, 3)
                         
             # prioprio
+            # if self.proprio is None:
             self.proprio = np.concatenate([obs['robo_pos'], obs['robo_ori'], np.array([0])], axis=-1)
             self.proprio = np.concatenate([self.proprio, np.zeros_like(self.proprio)], axis=-1)
             query = {
+                "domain_id": 3, 
                 "proprio": json_numpy.dumps(self.proprio),
                 "language_instruction": goal,
                 "image0": json_numpy.dumps(main_view),
-                "image1": json_numpy.dumps(wrist_view),
-                "domain_id": 3,
-                "steps": 10
+                "image1": json_numpy.dumps(wrist_view)
             }
             response = requests.post(self.url, json=query)
             action = np.array(response.json()['action'])
-            
+            # self.proprio = action[-1]
             target_eef = action[:, :3]
             target_axis = self.processor.Rotate6D_to_AxisAngle(action[:, 3:9])
             target_act = action[:, 9:10]
@@ -292,6 +292,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     kwargs = vars(args)
     
+
     print("-"*88)
     print("init seed:", kwargs['init_seed'])
     print("save path:", kwargs['output_dir'])
