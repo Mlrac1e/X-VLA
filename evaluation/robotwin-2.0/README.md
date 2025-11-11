@@ -36,7 +36,7 @@ Launch the RoboTwin-2.0 evaluation client to connect to your X-VLA server:
 cd evaluation/robotwin-2.0
 bash eval_robotwin.sh
 ```
-You can configure custome evaluation in `eval.sh`, such as log directry, server port number, number of episodes evaluated, task config, etc.
+You can configure custome evaluation in `eval_robotwin.sh`, such as log directry, server port number, number of episodes evaluated, task config, etc.
 
 The client will stream observations (images, proprioception, and language) to the X-VLA model, receive predicted actions, and execute them within the RoboTwin-2.0 environment.
 
@@ -47,5 +47,6 @@ The client will stream observations (images, proprioception, and language) to th
 |    **Settings**   |   Easy  |   Hard  |
 | :--------------------: | :--: | :--: |
 |     **Success (%)**    | 70.0 | 39.0 |
+
 
 
