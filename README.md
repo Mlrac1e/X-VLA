@@ -114,7 +114,7 @@ The client communicates via HTTP POST, sending multimodal data (vision + languag
 | `image0`               | `json_numpy.dumps(array)` | Primary camera image (RGB).                           |
 | `image1`, `image2`     | *optional*                | Additional camera views if applicable.                |
 | `domain_id`            | `int`                     | Identifier for the current robotic embodiment/domain. |
-| `steps`                | `int`                     | Number of action steps to predict (e.g., 10).         |
+| `steps`                | `int`                     | denoising steps for flow-matching based generation (e.g., 10).         |
 
 #### Example Client Code
 
