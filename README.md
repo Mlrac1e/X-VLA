@@ -100,7 +100,7 @@ model.run(processor, host="0.0.0.0", port=8000)
 Once launched, the API endpoint is available at:
 
 ```
-POST http://<server_ip>:8000/infer
+POST http://<server_ip>:8000/act
 ```
 
 ---
@@ -127,7 +127,7 @@ import requests
 import numpy as np
 import json_numpy
 
-server_url = "http://localhost:8000/infer"
+server_url = "http://localhost:8000/act"
 timeout = 5
 
 # Prepare inputs
